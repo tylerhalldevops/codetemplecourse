@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact SnowBytes - Get in touch with our ski bum crew for feedback, stoke, and pow pow updates.">
+    <title>Contact A Ski Bum - SnowBytes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="alternate" type="application/rss+xml" title="SnowBytes RSS Feed" href="feed.xml">
+</head>
+<body>
+    <!-- Top row: Logo left, mode toggles right -->
+    <div class="header-top-row">
+        <h1 class="neon-title">SnowBytes</h1>
+        <div class="mode-toggles">
+            <button 
+                id="darkModeToggle" 
+                class="dark-mode-toggle" 
+                type="button"
+                aria-label="Toggle dark mode"
+                aria-pressed="false"
+                title="Switch between light and dark themes">
+                🌙
+            </button>
+            <button 
+                id="nightVisionToggle" 
+                class="night-vision-toggle" 
+                type="button"
+                aria-label="Toggle night vision mode"
+                aria-pressed="false"
+                title="Enable night vision display mode">
+                🔴
+            </button>
+        </div>
+    </div>
+    
+    <!-- Bottom row: Nav left, info center, forecast right -->
+    <div class="info-nav-container">
+        <!-- Left: Navigation -->
+        <nav role="navigation" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="ski-patrol.html">Ski Patrol</a>
+            <a href="contact.html" aria-current="page">Contact A Ski Bum</a>
+        </nav>
+        
+        <!-- Center: Clock and Online Users stacked -->
+        <div class="info-left">
+            <div class="retro-clock" id="retroClock">00:00:00 AM | JAN 01, 2025</div>
+            <div class="online-users-counter">
+                <div class="online-indicator"></div>
+                <span id="onlineCount">47</span> USERS ONLINE NOW!
+            </div>
+        </div>
+        
+        <!-- Right: 7-Day Forecast -->
+        <div class="info-right">
+            <div id="skiResortForecast"></div>
+        </div>
+    </div>
+
+    <main>
+        <div class="suggestion-header">
+            <h2 class="page-title">📮 SUGGESTION BOX 📮</h2>
+            <p class="page-subtitle">
+                🤙 Got ideas to make SnowBytes more rad? Drop your suggestions here!
+            </p>
+        </div>
+        
+        <div class="suggestion-box-container">
+            <div class="suggestion-box">
+                <div class="suggestion-box-header">
+                    <h3>💡 YOUR SUGGESTIONS MATTER! 💡</h3>
+                    <p>Help us make this the most tubular snow sports site on the web!</p>
+                </div>
+                
+                <form class="suggestion-form" id="suggestionForm">
+                    <div class="form-group">
+                        <label for="name">📛 Your Name (or Alias):</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            placeholder="Shredder McGee" 
+                            required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">📧 Email (optional):</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="coolskier@radical.net">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">🎿 Suggestion Type:</label>
+                        <select id="category" name="category" required>
+                            <option value="">-- Pick One --</option>
+                            <option value="feature">🚀 New Feature Idea</option>
+                            <option value="content">📝 Content Suggestion</option>
+                            <option value="design">🎨 Design/Layout Feedback</option>
+                            <option value="bug">🐛 Bug Report</option>
+                            <option value="other">💭 Other Cool Stuff</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="suggestion">💬 Your Suggestion:</label>
+                        <textarea 
+                            id="suggestion" 
+                            name="suggestion" 
+                            rows="6" 
+                            placeholder="Lay it on us! What would make SnowBytes even more gnarly?" 
+                            required></textarea>
+                    </div>
+                    
+                    <div class="form-stoke-level">
+                        <label>⚡ Stoke Level:</label>
+                        <div class="stoke-buttons">
+                            <input type="radio" id="stoke1" name="stoke" value="1">
+                            <label for="stoke1" title="Meh">😐</label>
+                            
+                            <input type="radio" id="stoke2" name="stoke" value="2">
+                            <label for="stoke2" title="Cool">😊</label>
+                            
+                            <input type="radio" id="stoke3" name="stoke" value="3" checked>
+                            <label for="stoke3" title="Rad!">😎</label>
+                            
+                            <input type="radio" id="stoke4" name="stoke" value="4">
+                            <label for="stoke4" title="Stoked!">🤙</label>
+                            
+                            <input type="radio" id="stoke5" name="stoke" value="5">
+                            <label for="stoke5" title="TOTALLY RADICAL!">🔥</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="suggestion-submit-btn">
+                        <span class="btn-icon">📬</span>
+                        <span class="btn-text">DROP IN THE BOX!</span>
+                    </button>
+                </form>
+                
+                <div class="suggestion-thanks" id="thanksMessage" style="display: none;">
+                    <h3>🎉 TOTALLY RAD! 🎉</h3>
+                    <p>Your suggestion has been dropped in the box!</p>
+                    <p>We'll check it after our next powder run! 🏂</p>
+                    <button onclick="document.getElementById('suggestionForm').reset(); document.getElementById('thanksMessage').style.display='none'; document.getElementById('suggestionForm').style.display='block';" class="another-suggestion-btn">
+                        Drop Another Suggestion
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Copyright - Bottom Left -->
+        <div class="footer-copyright">
+            &copy; 2025 SnowBytes
+        </div>
+        
+        <!-- Ultra Retro 90s Hit Counter -->
+        <div class="retro-hit-counter">
+            <div class="hit-counter-label">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ctext x='8' y='12' text-anchor='middle' font-size='14'%3E👁️%3C/text%3E%3C/svg%3E" alt="eye" class="counter-icon">
+                YOU ARE VISITOR NUMBER:
+            </div>
+            <div class="hit-counter-display" id="hitCounterDisplay">
+                <div class="counter-digit" data-digit="0">0</div>
+                <div class="counter-digit" data-digit="0">0</div>
+                <div class="counter-digit" data-digit="0">0</div>
+                <div class="counter-digit" data-digit="3">3</div>
+                <div class="counter-digit" data-digit="6">6</div>
+                <div class="counter-digit" data-digit="7">7</div>
+            </div>
+            <div class="hit-counter-since">SINCE JANUARY 2025 🎿</div>
+        </div>
+        
+        <!-- Footer Bottom Right Section: Easter Eggs + Site Info -->
+        <div class="footer-bottom-right">
+            <!-- Easter Egg Badges -->
+            <div class="easter-egg-badges">
+                <div class="retro-badge" title="Best viewed in Netscape Navigator 4.0">
+                    <span class="badge-icon">🌐</span>
+                    <span class="badge-text">NETSCAPE<br>NOW!</span>
+                </div>
+                <div class="retro-badge" title="Powered by 100% AI">
+                    <span class="badge-icon">🤖</span>
+                    <span class="badge-text">AI<br>POWERED</span>
+                </div>
+                <div class="retro-badge" title="Fresh Powder Guaranteed">
+                    <span class="badge-icon">❄️</span>
+                    <span class="badge-text">100%<br>POW</span>
+                </div>
+                <div class="retro-badge" title="Under Construction... always!">
+                    <span class="badge-icon">🚧</span>
+                    <span class="badge-text">UNDER<br>CONSTR.</span>
+                </div>
+                <div class="retro-badge blog-archive-link" title="Blog Archive">
+                    <a href="blog.html" style="color: inherit; text-decoration: none; display: block;">
+                        <span class="badge-icon">📰</span>
+                        <span class="badge-text" style="font-size: 0.6em;">BLOG</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Site Info -->
+            <div class="webmaster-section">
+                <p class="webmaster-title">⚙️ SITE INFO ⚙️</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript Modules -->
+    <script src="darkmode.js" defer></script>
+    <script src="snowfall.js" defer></script>
+    <script src="ski-forecast-widget.js" defer></script>
+    
+    <script>
+        // Suggestion Box Form Handler
+        (function() {
+            const form = document.getElementById('suggestionForm');
+            const thanksMessage = document.getElementById('thanksMessage');
+            const submitBtn = document.querySelector('.suggestion-submit-btn');
+            
+            // Backend API URL (change this to your deployed backend URL)
+            const API_URL = 'http://localhost:3000/api/suggestions';
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Disable submit button
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="btn-icon">⏳</span><span class="btn-text">DROPPING...</span>';
+                
+                // Get form data
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    category: document.getElementById('category').value,
+                    suggestion: document.getElementById('suggestion').value,
+                    stoke: document.querySelector('input[name="stoke"]:checked').value,
+                    timestamp: new Date().toISOString()
+                };
+                
+                try {
+                    // Submit to backend
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        console.log('📮 Suggestion submitted successfully!', result);
+                        
+                        // Show thank you message
+                        form.style.display = 'none';
+                        thanksMessage.style.display = 'block';
+                        
+                        // Scroll to top of suggestion box
+                        document.querySelector('.suggestion-box').scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                    } else {
+                        throw new Error(result.error || 'Failed to submit suggestion');
+                    }
+                    
+                } catch (error) {
+                    console.error('Error submitting suggestion:', error);
+                    
+                    // Fallback to localStorage if backend is not available
+                    console.log('📮 Backend unavailable, storing locally...');
+                    let suggestions = JSON.parse(localStorage.getItem('snowbytesSuggestions') || '[]');
+                    suggestions.push(formData);
+                    localStorage.setItem('snowbytesSuggestions', JSON.stringify(suggestions));
+                    
+                    // Still show thank you message
+                    form.style.display = 'none';
+                    thanksMessage.style.display = 'block';
+                    
+                    document.querySelector('.suggestion-box').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                    
+                    alert('📮 Suggestion saved locally! (Backend server may be offline)');
+                    
+                } finally {
+                    // Re-enable submit button
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span class="btn-icon">📬</span><span class="btn-text">DROP IN THE BOX!</span>';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
+

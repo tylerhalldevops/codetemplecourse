@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ski Patrol information and resources - SnowBytes">
+    <title>Ski Patrol - SnowBytes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="alternate" type="application/rss+xml" title="SnowBytes RSS Feed" href="feed.xml">
+</head>
+<body>
+    <!-- Top row: Logo left, mode toggles right -->
+    <div class="header-top-row">
+        <h1 class="neon-title">SnowBytes</h1>
+        <div class="mode-toggles">
+            <button 
+                id="darkModeToggle" 
+                class="dark-mode-toggle" 
+                type="button"
+                aria-label="Toggle dark mode"
+                aria-pressed="false"
+                title="Switch between light and dark themes">
+                🌙
+            </button>
+            <button 
+                id="nightVisionToggle" 
+                class="night-vision-toggle" 
+                type="button"
+                aria-label="Toggle night vision mode"
+                aria-pressed="false"
+                title="Enable night vision display mode">
+                🔴
+            </button>
+        </div>
+    </div>
+    
+    <!-- Bottom row: Nav left, info center, forecast right -->
+    <div class="info-nav-container">
+        <!-- Left: Navigation -->
+        <nav role="navigation" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="ski-patrol.html" aria-current="page">Ski Patrol</a>
+            <a href="contact.html">Contact A Ski Bum</a>
+        </nav>
+        
+        <!-- Center: Clock and Online Users stacked -->
+        <div class="info-left">
+            <div class="retro-clock" id="retroClock">00:00:00 AM | JAN 01, 2025</div>
+            <div class="online-users-counter">
+                <div class="online-indicator"></div>
+                <span id="onlineCount">47</span> USERS ONLINE NOW!
+            </div>
+        </div>
+        
+        <!-- Right: 7-Day Forecast -->
+        <div class="info-right">
+            <div id="skiResortForecast"></div>
+        </div>
+    </div>
+
+    <main>
+        <div class="ski-patrol-header">
+            <h2 class="page-title">⛷️ SKI PATROL ⛷️</h2>
+            <p class="page-subtitle">🚨 Emergency Contact Numbers for Colorado Ski Resorts 🚨</p>
+        </div>
+        
+        <div class="ski-patrol-content">
+            <!-- Arapahoe Basin -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Arapahoe Basin</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9704683203" class="phone-link">970-468-3203</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9704680718" class="phone-link">970-468-0718</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:8888272732" class="phone-link">888-827-2732</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:9704680718" class="phone-link">970-468-0718</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Aspen Highlands -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Aspen Highlands</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9709251220" class="phone-link">970-925-1220</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9709251220" class="phone-link">970-925-1220</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9709231221" class="phone-link">970-923-1221</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:8009239813" class="phone-link">800-923-9813</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Aspen Mountain -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Aspen Mountain</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9709251220" class="phone-link">970-925-1220</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9709251220" class="phone-link">970-925-1220</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9709231221" class="phone-link">970-923-1221</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:8009239813" class="phone-link">800-923-9813</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Beaver Creek -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Beaver Creek</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9707543285" class="phone-link">970-754-3285</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9707544636" class="phone-link">970-754-4636</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9704764888" class="phone-link">970-476-4888</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:9707545000" class="phone-link">970-754-5000</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Breckenridge -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Breckenridge</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9704533266" class="phone-link">970-453-3266</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9704535000" class="phone-link">970-453-5000</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9704534111" class="phone-link">970-453-4111</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:8009832667" class="phone-link">800-983-2667</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Buttermilk -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Buttermilk</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9709251220" class="phone-link">970-925-1220</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9709251220" class="phone-link">970-925-1220</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9709231221" class="phone-link">970-923-1221</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:8009239813" class="phone-link">800-923-9813</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Copper Mountain -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Copper Mountain</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9709683266" class="phone-link">970-968-3266</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9709682882" class="phone-link">970-968-2882</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9709682318" class="phone-link">970-968-2318</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:8662412826" class="phone-link">866-241-2826</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Crested Butte -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Crested Butte</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9703494272" class="phone-link">970-349-4272</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9703492333" class="phone-link">970-349-2333</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9703492323" class="phone-link">970-349-2323</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:8008107669" class="phone-link">800-810-7669</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Eldora Mountain Resort -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Eldora Mountain Resort</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:3034401043" class="phone-link">303-440-1043</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:3034408700" class="phone-link">303-440-8700</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:3034408700" class="phone-link">303-440-8700</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:3034408700" class="phone-link">303-440-8700</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Keystone -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Keystone</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9704963303" class="phone-link">970-496-3303</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9704964386" class="phone-link">970-496-4386</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9704964111" class="phone-link">970-496-4111</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:8773256696" class="phone-link">877-325-6696</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Loveland Ski Area -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Loveland Ski Area</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:8008995911" class="phone-link">800-899-5911</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:8008995911" class="phone-link">800-899-5911</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:8008995911" class="phone-link">800-899-5911</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:3035711580" class="phone-link">303-571-1580</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Monarch Mountain -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Monarch Mountain</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:7195303715" class="phone-link">719-530-3715</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:7195305715" class="phone-link">719-530-5715</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:8003321668" class="phone-link">800-332-1668</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:7195305715" class="phone-link">719-530-5715</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Powderhorn Mountain Resort -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Powderhorn Mountain Resort</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9702681366" class="phone-link">970-268-1366</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9702685700" class="phone-link">970-268-5700</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9702685700" class="phone-link">970-268-5700</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:9702685700" class="phone-link">970-268-5700</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Purgatory Resort -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Purgatory Resort</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9702475030" class="phone-link">970-247-5030</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9702479000" class="phone-link">970-247-9000</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9702479000" class="phone-link">970-247-9000</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:8007821248" class="phone-link">800-782-1248</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Silverton Mountain -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Silverton Mountain</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9703875706" class="phone-link">970-387-5706</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9703875706" class="phone-link">970-387-5706</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Reservations:</span>
+                            <a href="tel:9703875706" class="phone-link">970-387-5706</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:9703875706" class="phone-link">970-387-5706</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Snowmass -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Snowmass</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9709231220" class="phone-link">970-923-1220</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9709231220" class="phone-link">970-923-1220</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9709231221" class="phone-link">970-923-1221</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:8009239813" class="phone-link">800-923-9813</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Steamboat -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Steamboat</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9708713220" class="phone-link">970-871-3220</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9708796111" class="phone-link">970-879-6111</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9708797300" class="phone-link">970-879-7300</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:8778378261" class="phone-link">877-837-8261</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Sunlight Mountain Resort -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Sunlight Mountain Resort</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9709451100" class="phone-link">970-945-1100</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9709457491" class="phone-link">970-945-7491</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9709457491" class="phone-link">970-945-7491</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:8003971111" class="phone-link">800-397-1111</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Telluride -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Telluride</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9707286900" class="phone-link">970-728-6900</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9707286900" class="phone-link">970-728-6900</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9707287425" class="phone-link">970-728-7425</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:8887884743" class="phone-link">888-788-4743</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Vail Mountain -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Vail Mountain</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9704763477" class="phone-link">970-476-3477</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9704764888" class="phone-link">970-476-4888</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:9704764888" class="phone-link">970-476-4888</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:9704765601" class="phone-link">970-476-5601</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Winter Park Resort -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Winter Park Resort</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9707263514" class="phone-link">970-726-3514</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9707265514" class="phone-link">970-726-5514</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:3038927669" class="phone-link">303-892-7669</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:9707265514" class="phone-link">970-726-5514</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Wolf Creek -->
+            <div class="resort-card">
+                <h3 class="resort-name">🏔️ Wolf Creek</h3>
+                <div class="patrol-number">
+                    <span class="patrol-label">⛷️ SKI PATROL:</span>
+                    <a href="tel:9708734881" class="phone-link">970-873-4881</a>
+                </div>
+                <details class="contact-dropdown">
+                    <summary>📞 Other Important Numbers</summary>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Main Resort:</span>
+                            <a href="tel:9708735605" class="phone-link">970-873-5605</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Snow Report:</span>
+                            <a href="tel:8007540030" class="phone-link">800-754-0030</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Guest Services:</span>
+                            <a href="tel:9708735605" class="phone-link">970-873-5605</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Show More Button -->
+            <button class="show-more-btn" id="showMoreBtn">
+                <span class="btn-icon">⬇️</span>
+                <span class="btn-text">SHOW ALL RESORTS</span>
+                <span class="btn-count">(10 MORE)</span>
+            </button>
+
+            <!-- Emergency Notice -->
+            <div class="emergency-notice">
+                <h3>🚨 EMERGENCY - CALL 911 🚨</h3>
+                <p>For life-threatening emergencies, always call <strong>911</strong> first!</p>
+                <p>Colorado State Patrol: <a href="tel:303239" class="phone-link">*CSP (*277)</a> from mobile</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Copyright - Bottom Left -->
+        <div class="footer-copyright">
+            &copy; 2025 SnowBytes
+        </div>
+        
+        <!-- Ultra Retro 90s Hit Counter -->
+        <div class="retro-hit-counter">
+            <div class="hit-counter-label">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ctext x='8' y='12' text-anchor='middle' font-size='14'%3E👁️%3C/text%3E%3C/svg%3E" alt="eye" class="counter-icon">
+                YOU ARE VISITOR NUMBER:
+            </div>
+            <div class="hit-counter-display" id="hitCounterDisplay">
+                <div class="counter-digit" data-digit="0">0</div>
+                <div class="counter-digit" data-digit="0">0</div>
+                <div class="counter-digit" data-digit="0">0</div>
+                <div class="counter-digit" data-digit="3">3</div>
+                <div class="counter-digit" data-digit="6">6</div>
+                <div class="counter-digit" data-digit="7">7</div>
+            </div>
+            <div class="hit-counter-since">SINCE JANUARY 2025 🎿</div>
+        </div>
+        
+        <!-- Footer Bottom Right Section: Easter Eggs + Site Info -->
+        <div class="footer-bottom-right">
+            <!-- Easter Egg Badges -->
+            <div class="easter-egg-badges">
+                <div class="retro-badge" title="Best viewed in Netscape Navigator 4.0">
+                    <span class="badge-icon">🌐</span>
+                    <span class="badge-text">NETSCAPE<br>NOW!</span>
+                </div>
+                <div class="retro-badge" title="Powered by 100% AI">
+                    <span class="badge-icon">🤖</span>
+                    <span class="badge-text">AI<br>POWERED</span>
+                </div>
+                <div class="retro-badge" title="Fresh Powder Guaranteed">
+                    <span class="badge-icon">❄️</span>
+                    <span class="badge-text">100%<br>POW</span>
+                </div>
+                <div class="retro-badge" title="Under Construction... always!">
+                    <span class="badge-icon">🚧</span>
+                    <span class="badge-text">UNDER<br>CONSTR.</span>
+                </div>
+                <div class="retro-badge blog-archive-link" title="Blog Archive">
+                    <a href="blog.html" style="color: inherit; text-decoration: none; display: block;">
+                        <span class="badge-icon">📰</span>
+                        <span class="badge-text" style="font-size: 0.6em;">BLOG</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Site Info -->
+            <div class="webmaster-section">
+                <p class="webmaster-title">⚙️ SITE INFO ⚙️</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript Modules -->
+    <script src="darkmode.js" defer></script>
+    <script src="snowfall.js" defer></script>
+    <script src="ski-forecast-widget.js" defer></script>
+    
+    <!-- Show More Button Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const showMoreBtn = document.getElementById('showMoreBtn');
+            const skiPatrolContent = document.querySelector('.ski-patrol-content');
+            
+            if (showMoreBtn && skiPatrolContent) {
+                showMoreBtn.addEventListener('click', function() {
+                    skiPatrolContent.classList.add('show-all');
+                    
+                    // Smooth scroll to show newly revealed resorts
+                    setTimeout(function() {
+                        const firstHiddenCard = document.querySelector('.resort-card:nth-child(13)');
+                        if (firstHiddenCard) {
+                            firstHiddenCard.scrollIntoView({ 
+                                behavior: 'smooth', 
+                                block: 'nearest' 
+                            });
+                        }
+                    }, 100);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

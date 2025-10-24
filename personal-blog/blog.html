@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SnowBytes Blog Archive - Latest snow sports news and articles">
+    <title>Blog Archive - SnowBytes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top row: Logo left, mode toggles right -->
+    <div class="header-top-row">
+        <h1 class="neon-title">SnowBytes</h1>
+        <div class="mode-toggles">
+            <button 
+                id="darkModeToggle" 
+                class="dark-mode-toggle" 
+                type="button"
+                aria-label="Toggle dark mode"
+                aria-pressed="false"
+                title="Switch between light and dark themes">
+                🌙
+            </button>
+            <button 
+                id="nightVisionToggle" 
+                class="night-vision-toggle" 
+                type="button"
+                aria-label="Toggle night vision mode"
+                aria-pressed="false"
+                title="Enable night vision display mode">
+                🔴
+            </button>
+        </div>
+    </div>
+    
+    <!-- Bottom row: Nav left, info center, forecast right -->
+    <div class="info-nav-container">
+        <!-- Left: Navigation -->
+        <nav role="navigation" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="ski-patrol.html">Ski Patrol</a>
+            <a href="contact.html">Contact A Ski Bum</a>
+        </nav>
+        
+        <!-- Center: Clock and Online Users stacked -->
+        <div class="info-left">
+            <div class="retro-clock" id="retroClock">00:00:00 AM | JAN 01, 2025</div>
+            <div class="online-users-counter">
+                <div class="online-indicator"></div>
+                <span id="onlineCount">47</span> USERS ONLINE NOW!
+            </div>
+        </div>
+        
+        <!-- Right: 7-Day Forecast -->
+        <div class="info-right">
+            <div id="skiResortForecast"></div>
+        </div>
+    </div>
+
+    <main>
+        <div class="blog-archive-header">
+            <h2 class="page-title">❄️ THE POWDER STASH ❄️</h2>
+            <p class="page-subtitle">
+                🏔️ Fresh Tracks | Deep Reads | Epic Stories from the Mountain 🎿
+            </p>
+        </div>
+        
+        <!-- Filter Controls -->
+        <div class="blog-controls">
+            <div class="blog-filters">
+                <button class="filter-btn active" data-filter="all" onclick="filterBlog('all')">
+                    ⛷️ All Articles
+                </button>
+                <button class="filter-btn" data-filter="Powder Magazine" onclick="filterBlog('Powder Magazine')">
+                    🏔️ Powder
+                </button>
+                <button class="filter-btn" data-filter="Freeskier" onclick="filterBlog('Freeskier')">
+                    🏂 Freeskier
+                </button>
+                <button class="filter-btn" data-filter="Colorado" onclick="filterBlog('Colorado')">
+                    ⛰️ Colorado
+                </button>
+            </div>
+            <div class="blog-sort">
+                <label for="sortSelect">Sort By:</label>
+                <select id="sortSelect" onchange="sortBlog(this.value)">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="source">By Source</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Stats Bar -->
+        <div class="blog-stats">
+            <div class="stat-item">
+                <span class="stat-number" id="totalArticles">0</span>
+                <span class="stat-label">Total Articles</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="sourcesCount">0</span>
+                <span class="stat-label">News Sources</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="lastUpdate">Just Now</span>
+                <span class="stat-label">Last Updated</span>
+            </div>
+        </div>
+        
+        <!-- Blog Posts Container -->
+        <div class="blog-archive-container" id="blogContainer">
+            <div class="blog-loading">
+                <div class="loading-spinner">⚡</div>
+                <p>Loading rad articles from around the web...</p>
+            </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="blog-pagination" id="paginationContainer" style="display: none;">
+            <button class="page-btn" id="prevBtn" onclick="changePage(-1)">
+                ← Previous
+            </button>
+            <div class="page-numbers" id="pageNumbers"></div>
+            <button class="page-btn" id="nextBtn" onclick="changePage(1)">
+                Next →
+            </button>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Copyright - Bottom Left -->
+        <div class="footer-copyright">
+            &copy; 2025 SnowBytes
+        </div>
+
+        <!-- Hit Counter - Centered -->
+        <div class="retro-hit-counter">
+            <div class="hit-counter-label">
+                <span>👁️</span>
+                <span>YOU ARE VISITOR NUMBER</span>
+            </div>
+            <div class="hit-counter-display" id="hitCounterDisplay">
+                <span class="counter-digit">0</span>
+                <span class="counter-digit">0</span>
+                <span class="counter-digit">0</span>
+                <span class="counter-digit">0</span>
+                <span class="counter-digit">0</span>
+                <span class="counter-digit">0</span>
+            </div>
+            <div class="hit-counter-since">Since January 2025</div>
+        </div>
+
+        <!-- Site Info & Easter Eggs - Bottom Right -->
+        <div class="footer-bottom-right">
+            <div class="easter-egg-badges">
+                <div class="retro-badge" title="Best viewed in Netscape Navigator">
+                    <img src="https://web.archive.org/web/19990429055831im_/http://www.ecn.bgu.edu/users/gswaters/netscape.gif" alt="Netscape Now!" style="height: 31px;">
+                </div>
+                <div class="retro-badge" title="Powered by HTML & vibes">
+                    <img src="https://web.archive.org/web/19990125093223im_/http://www.burningbison.com/images/html.gif" alt="HTML" style="height: 31px;">
+                </div>
+                <div class="retro-badge blog-archive-link" title="Blog Archive">
+                    <a href="blog.html" style="color: #00FF00; text-decoration: none; font-size: 0.6em; display: block; padding: 2px 4px;">📰</a>
+                </div>
+            </div>
+            <div class="webmaster-section">
+                <p style="margin: 0; font-size: 0.9em;">🌐 Site Info</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript Modules -->
+    <script src="darkmode.js" defer></script>
+    <script src="snowfall.js" defer></script>
+    <script src="ski-forecast-widget.js" defer></script>
+    <script src="rss-importer.js" defer></script>
+    
+    <script>
+        // Blog Archive Manager
+        let allArticles = [];
+        let filteredArticles = [];
+        let currentPage = 1;
+        const articlesPerPage = 12;
+        let currentFilter = 'all';
+        let currentSort = 'newest';
+        
+        // Load blog articles
+        window.addEventListener('DOMContentLoaded', async () => {
+            const feeds = [
+                // Primary Ski/Snowboard Magazines (Most Relevant)
+                'https://www.powder.com/feed/',
+                'https://www.freeskier.com/feed',
+                'https://www.backcountrymagazine.com/feed/',
+                
+                // Snow Reports & Resort News
+                'https://www.onthesnow.com/news/feed/',
+                
+                // Colorado-Specific News (Outdoor/Mountain focus)
+                'https://coloradosun.com/category/outdoors/feed/',
+                'https://www.summitdaily.com/sports/feed/'
+            ];
+            
+            const container = document.getElementById('blogContainer');
+            
+            try {
+                const results = await Promise.allSettled(
+                    feeds.map(async feedUrl => {
+                        try {
+                            const sourceInfo = getSourceInfo(feedUrl);
+                            const items = await fetchRSSData(feedUrl, 15);
+                            return items.map(item => ({
+                                ...item,
+                                source: sourceInfo.name,
+                                sourceInfo: sourceInfo
+                            }));
+                        } catch (e) {
+                            console.warn('Feed failed:', feedUrl, e);
+                            return [];
+                        }
+                    })
+                );
+                
+                // Collect articles and filter for ski/snow/Colorado relevance
+                results.forEach(result => {
+                    if (result.status === 'fulfilled' && result.value && result.value.length > 0) {
+                        // Filter articles by keyword relevance
+                        const relevantArticles = result.value.filter(article => {
+                            const text = (article.title + ' ' + article.description + ' ' + (article.content || '')).toLowerCase();
+                            
+                            // Must contain ski/snow/winter sports keywords
+                            const hasSkiKeywords = 
+                                text.includes('ski') || 
+                                text.includes('snow') || 
+                                text.includes('powder') ||
+                                text.includes('resort') ||
+                                text.includes('mountain') ||
+                                text.includes('snowboard') ||
+                                text.includes('winter') ||
+                                text.includes('avalanche') ||
+                                text.includes('backcountry') ||
+                                text.includes('colorado') ||
+                                text.includes('slopes') ||
+                                text.includes('lift') ||
+                                text.includes('terrain') ||
+                                text.includes('alpine');
+                            
+                            // Exclude non-relevant topics
+                            const hasExcludedKeywords = 
+                                text.includes('water ski') ||
+                                text.includes('jet ski');
+                            
+                            return hasSkiKeywords && !hasExcludedKeywords;
+                        });
+                        
+                        allArticles.push(...relevantArticles);
+                    }
+                });
+                
+                // Sort by date (newest first)
+                allArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+                
+                filteredArticles = [...allArticles];
+                
+                // Update stats
+                updateStats();
+                
+                // Display first page
+                displayPage();
+                
+            } catch (error) {
+                console.error('Error loading blog:', error);
+                container.innerHTML = '<div class="blog-error">⚠️ Unable to load articles. Please try again later.</div>';
+            }
+        });
+        
+        function updateStats() {
+            document.getElementById('totalArticles').textContent = allArticles.length;
+            
+            const sources = new Set(allArticles.map(a => a.source));
+            document.getElementById('sourcesCount').textContent = sources.size;
+            
+            const now = new Date();
+            document.getElementById('lastUpdate').textContent = now.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit' 
+            });
+        }
+        
+        function filterBlog(filter) {
+            currentFilter = filter;
+            currentPage = 1;
+            
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === filter) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Filter articles
+            if (filter === 'all') {
+                filteredArticles = [...allArticles];
+            } else if (filter === 'Colorado') {
+                // Special filter for Colorado sources
+                filteredArticles = allArticles.filter(a => 
+                    a.source === 'Colorado Sun' || a.source === 'Denver Post'
+                );
+            } else {
+                filteredArticles = allArticles.filter(a => a.source === filter);
+            }
+            
+            // Apply current sort
+            applySorting();
+            
+            displayPage();
+        }
+        
+        function sortBlog(sortType) {
+            currentSort = sortType;
+            applySorting();
+            displayPage();
+        }
+        
+        function applySorting() {
+            if (currentSort === 'newest') {
+                filteredArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+            } else if (currentSort === 'oldest') {
+                filteredArticles.sort((a, b) => new Date(a.pubDate) - new Date(b.pubDate));
+            } else if (currentSort === 'source') {
+                filteredArticles.sort((a, b) => a.source.localeCompare(b.source));
+            }
+        }
+        
+        function displayPage() {
+            const container = document.getElementById('blogContainer');
+            const start = (currentPage - 1) * articlesPerPage;
+            const end = start + articlesPerPage;
+            const pageArticles = filteredArticles.slice(start, end);
+            
+            if (pageArticles.length === 0) {
+                container.innerHTML = '<div class="blog-empty">📭 No articles found for this filter.</div>';
+                document.getElementById('paginationContainer').style.display = 'none';
+                return;
+            }
+            
+            container.innerHTML = pageArticles.map(article => {
+                const date = new Date(article.pubDate);
+                return `
+                    <article class="blog-archive-item">
+                        <div class="blog-item-header">
+                            <h3>${article.title}</h3>
+                            <div class="blog-item-meta">
+                                <span class="blog-source" style="background-color: ${article.sourceInfo.color}">
+                                    ${article.sourceInfo.emoji} ${article.source}
+                                </span>
+                                <span class="blog-date">
+                                    📅 ${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="blog-item-description">
+                            ${stripHTML(article.description || article.content || '').substring(0, 250)}...
+                        </div>
+                        <a href="${article.link}" target="_blank" class="blog-item-link">
+                            Read Full Article →
+                        </a>
+                    </article>
+                `;
+            }).join('');
+            
+            // Update pagination
+            updatePagination();
+        }
+        
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+            
+            if (totalPages <= 1) {
+                document.getElementById('paginationContainer').style.display = 'none';
+                return;
+            }
+            
+            document.getElementById('paginationContainer').style.display = 'flex';
+            
+            // Update buttons
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+            
+            // Update page numbers
+            const pageNumbers = document.getElementById('pageNumbers');
+            let pagesHTML = '';
+            
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    pagesHTML += `
+                        <button 
+                            class="page-num ${i === currentPage ? 'active' : ''}" 
+                            onclick="goToPage(${i})">
+                            ${i}
+                        </button>
+                    `;
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    pagesHTML += '<span class="page-ellipsis">...</span>';
+                }
+            }
+            
+            pageNumbers.innerHTML = pagesHTML;
+        }
+        
+        function changePage(delta) {
+            currentPage += delta;
+            displayPage();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function goToPage(page) {
+            currentPage = page;
+            displayPage();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function stripHTML(html) {
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            return (div.textContent || div.innerText || '').trim();
+        }
+    </script>
+</body>
+</html>
+

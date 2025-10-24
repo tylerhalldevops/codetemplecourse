@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SnowBytes - Your AI-powered source for the latest ski, snowboard, and winter sports news from Colorado and beyond.">
+    <meta name="keywords" content="snow sports, ski blog, snowboard, Colorado skiing, winter sports, ski conditions, snow report">
+    <title>SnowBytes - An AI Written Snow Sports Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://wttr.in">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="alternate" type="application/rss+xml" title="SnowBytes RSS Feed" href="feed.xml">
+</head>
+<body>
+    <!-- Top row: Logo left, mode toggles right -->
+    <div class="header-top-row">
+        <h1 class="neon-title">SnowBytes</h1>
+        <div class="mode-toggles">
+            <button 
+                id="darkModeToggle" 
+                class="dark-mode-toggle" 
+                type="button"
+                aria-label="Toggle dark mode"
+                aria-pressed="false"
+                title="Switch between light and dark themes">
+                🌙
+            </button>
+            <button 
+                id="nightVisionToggle" 
+                class="night-vision-toggle" 
+                type="button"
+                aria-label="Toggle night vision mode"
+                aria-pressed="false"
+                title="Enable night vision display mode">
+                🔴
+            </button>
+        </div>
+    </div>
+    
+    <!-- Bottom row: Nav left, info center, forecast right -->
+    <div class="info-nav-container">
+        <!-- Left: Navigation -->
+        <nav role="navigation" aria-label="Main navigation">
+            <a href="index.html" aria-current="page">Home</a>
+            <a href="ski-patrol.html">Ski Patrol</a>
+            <a href="contact.html">Contact A Ski Bum</a>
+        </nav>
+        
+        <!-- Center: Clock and Online Users stacked -->
+        <div class="info-left">
+            <div class="retro-clock" id="retroClock">00:00:00 AM | JAN 01, 2025</div>
+            <div class="online-users-counter">
+                <div class="online-indicator"></div>
+                <span id="onlineCount">47</span> USERS ONLINE NOW!
+            </div>
+        </div>
+        
+        <!-- Right: 7-Day Forecast -->
+        <div class="info-right">
+            <div id="skiResortForecast"></div>
+        </div>
+    </div>
+    
+    <!-- Weather Ticker -->
+    <div class="weather-ticker">
+        <div class="weather-info" id="weatherInfo">
+            <span class="weather-loading">🌤️ Loading weather data...</span>
+        </div>
+    </div>
+    
+    <!-- Traffic Ticker -->
+    <div class="traffic-ticker">
+        <div class="traffic-info" id="trafficInfo">
+            <span class="traffic-loading">🚗 Loading traffic data...</span>
+        </div>
+    </div>
+
+    <main>
+        <!-- Highway 24 Traffic Widget (Fixed Left Side) -->
+        <!-- IMPROVED: Enhanced accessibility for traffic widgets -->
+        <div class="hwy24-traffic-widget" id="hwy24Widget" role="region" aria-label="Highway 24 traffic information">
+            <div class="hwy24-header">
+                <h3>🛣️ HWY 24 EAST</h3>
+                <span class="hwy24-subtitle">Colorado Springs</span>
+                <button 
+                    class="traffic-refresh-btn" 
+                    id="hwy24Refresh" 
+                    type="button"
+                    aria-label="Refresh Highway 24 traffic information"
+                    title="Refresh traffic data">
+                    🔄
+                </button>
+            </div>
+            <div class="hwy24-body" id="hwy24Content" aria-live="polite" aria-busy="true">
+                <div class="traffic-loading">Loading...</div>
+            </div>
+        </div>
+        
+        <!-- I-70 Traffic Widget (Fixed Right Side) -->
+        <div class="i70-traffic-widget" id="i70Widget" role="region" aria-label="Interstate 70 traffic information">
+            <div class="i70-header">
+                <h3>🚗 I-70 EAST</h3>
+                <span class="i70-subtitle">Denver Area</span>
+                <button 
+                    class="traffic-refresh-btn" 
+                    id="i70Refresh" 
+                    type="button"
+                    aria-label="Refresh Interstate 70 traffic information"
+                    title="Refresh traffic data">
+                    🔄
+                </button>
+            </div>
+            <div class="i70-body" id="i70Content" aria-live="polite" aria-busy="true">
+                <div class="traffic-loading">Loading...</div>
+            </div>
+        </div>
+        <!-- Ski Resort Widgets -->
+        <div class="ski-widgets-container">
+            <h2 class="ski-widgets-title">⛷️ COLORADO SKI CONDITIONS ⛷️</h2>
+            
+            <div class="ski-widgets-grid">
+                <!-- Breckenridge Widget -->
+                <div class="ski-widget collapsed">
+                    <div class="ski-widget-header">
+                        <h3>🏔️ BRECKENRIDGE</h3>
+                    </div>
+                    <div class="ski-widget-body" id="breckWidget">
+                        <div class="ski-loading">Loading conditions...</div>
+                    </div>
+                    <div class="ski-widget-footer">
+                        <a href="https://www.breckenridge.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx" target="_blank" rel="noopener noreferrer" class="ski-link">
+                            📊 Full Report →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Keystone Widget -->
+                <div class="ski-widget collapsed">
+                    <div class="ski-widget-header">
+                        <h3>🏔️ KEYSTONE</h3>
+                    </div>
+                    <div class="ski-widget-body" id="keystoneWidget">
+                        <div class="ski-loading">Loading conditions...</div>
+                    </div>
+                    <div class="ski-widget-footer">
+                        <a href="https://www.keystoneresort.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx" target="_blank" rel="noopener noreferrer" class="ski-link">
+                            📊 Full Report →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Vail Widget -->
+                <div class="ski-widget collapsed">
+                    <div class="ski-widget-header">
+                        <h3>🏔️ VAIL</h3>
+                    </div>
+                    <div class="ski-widget-body" id="vailWidget">
+                        <div class="ski-loading">Loading conditions...</div>
+                    </div>
+                    <div class="ski-widget-footer">
+                        <a href="https://www.vail.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx" target="_blank" rel="noopener noreferrer" class="ski-link">
+                            📊 Full Report →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Monarch Mountain Widget -->
+                <div class="ski-widget collapsed">
+                    <div class="ski-widget-header">
+                        <h3>🏔️ MONARCH MOUNTAIN</h3>
+                    </div>
+                    <div class="ski-widget-body" id="monarchWidget">
+                        <div class="ski-loading">Loading conditions...</div>
+                    </div>
+                    <div class="ski-widget-footer">
+                        <a href="https://www.skimonarch.com/the-mountain/conditions-weather/" target="_blank" rel="noopener noreferrer" class="ski-link">
+                            📊 Full Report →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Aspen Widget -->
+                <div class="ski-widget collapsed">
+                    <div class="ski-widget-header">
+                        <h3>🏔️ ASPEN</h3>
+                    </div>
+                    <div class="ski-widget-body" id="aspenWidget">
+                        <div class="ski-loading">Loading conditions...</div>
+                    </div>
+                    <div class="ski-widget-footer">
+                        <a href="https://www.aspensnowmass.com/our-mountains/mountain-conditions" target="_blank" rel="noopener noreferrer" class="ski-link">
+                            📊 Full Report →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Copper Mountain Widget -->
+                <div class="ski-widget collapsed">
+                    <div class="ski-widget-header">
+                        <h3>🏔️ COPPER MOUNTAIN</h3>
+                    </div>
+                    <div class="ski-widget-body" id="copperWidget">
+                        <div class="ski-loading">Loading conditions...</div>
+                    </div>
+                    <div class="ski-widget-footer">
+                        <a href="https://www.coppercolorado.com/the-mountain/conditions-and-weather/snow-report" target="_blank" rel="noopener noreferrer" class="ski-link">
+                            📊 Full Report →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Crested Butte Widget -->
+                <div class="ski-widget collapsed">
+                    <div class="ski-widget-header">
+                        <h3>🏔️ CRESTED BUTTE</h3>
+                    </div>
+                    <div class="ski-widget-body" id="crestedWidget">
+                        <div class="ski-loading">Loading conditions...</div>
+                    </div>
+                    <div class="ski-widget-footer">
+                        <a href="https://www.skicb.com/the-mountain/mountain-report/" target="_blank" rel="noopener noreferrer" class="ski-link">
+                            📊 Full Report →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Beaver Creek Widget -->
+                <div class="ski-widget collapsed">
+                    <div class="ski-widget-header">
+                        <h3>🏔️ BEAVER CREEK</h3>
+                    </div>
+                    <div class="ski-widget-body" id="beaverWidget">
+                        <div class="ski-loading">Loading conditions...</div>
+                    </div>
+                    <div class="ski-widget-footer">
+                        <a href="https://www.beavercreek.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx" target="_blank" rel="noopener noreferrer" class="ski-link">
+                            📊 Full Report →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Colorado Pow Command Center -->
+        <div class="webcam-central-container">
+            <h2 class="webcam-central-title">❄️ COLORADO POW COMMAND CENTER ❄️</h2>
+            <p class="webcam-central-subtitle">🏔️ Check Live Conditions at Every Major Resort! 🏂</p>
+            
+            <div class="webcam-categories">
+                <!-- Summit County Resorts - Always Visible -->
+                <div class="webcam-category webcam-stage-1">
+                    <h3 class="webcam-category-title">⛷️ SUMMIT COUNTY ⛷️</h3>
+                    <div class="webcam-links-grid">
+                        <a href="https://www.breckenridge.com/the-mountain/mountain-conditions/mountain-cams.aspx" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">🏔️</span>
+                            <span class="webcam-name">Breckenridge</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                        <a href="https://www.keystoneresort.com/the-mountain/mountain-conditions/mountain-cams.aspx" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">🎿</span>
+                            <span class="webcam-name">Keystone</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                        <a href="https://www.arapahoebasin.com/webcams/" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">🏂</span>
+                            <span class="webcam-name">Arapahoe Basin</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                        <a href="https://www.coppercolorado.com/the-mountain/conditions-and-weather/mountain-cams" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">⛷️</span>
+                            <span class="webcam-name">Copper Mountain</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- View More Button - Stage 1 -->
+                <div class="webcam-view-more-container" id="viewMoreStage1">
+                    <button class="webcam-view-more-btn" aria-expanded="false" aria-controls="webcamStage2">
+                        🏔️ VIEW MORE RESORTS ⛷️
+                    </button>
+                </div>
+
+                <!-- Vail Valley Resorts - Stage 2 -->
+                <div class="webcam-category webcam-stage-2 webcam-hidden">
+                    <h3 class="webcam-category-title">🎿 VAIL VALLEY 🎿</h3>
+                    <div class="webcam-links-grid">
+                        <a href="https://www.vail.com/the-mountain/mountain-conditions/mountain-cams.aspx" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">👑</span>
+                            <span class="webcam-name">Vail</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                        <a href="https://www.beavercreek.com/the-mountain/mountain-conditions/mountain-cams.aspx" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">🏔️</span>
+                            <span class="webcam-name">Beaver Creek</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Aspen/Snowmass - Stage 2 -->
+                <div class="webcam-category webcam-stage-2 webcam-hidden">
+                    <h3 class="webcam-category-title">🏂 ASPEN/SNOWMASS 🏂</h3>
+                    <div class="webcam-links-grid">
+                        <a href="https://www.aspensnowmass.com/our-mountains/webcams" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">⭐</span>
+                            <span class="webcam-name">Aspen Mountain</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                        <a href="https://www.aspensnowmass.com/our-mountains/webcams" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">❄️</span>
+                            <span class="webcam-name">Snowmass</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                        <a href="https://www.aspensnowmass.com/our-mountains/webcams" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">🎿</span>
+                            <span class="webcam-name">Aspen Highlands</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                        <a href="https://www.aspensnowmass.com/our-mountains/webcams" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">🏔️</span>
+                            <span class="webcam-name">Buttermilk</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- View More Button - Stage 2 -->
+                <div class="webcam-view-more-container webcam-stage-2 webcam-hidden" id="viewMoreStage2">
+                    <button class="webcam-view-more-btn" aria-expanded="false" aria-controls="webcamStage3">
+                        🏂 VIEW EVEN MORE RESORTS ❄️
+                    </button>
+                </div>
+
+                <!-- I-70 Corridor - Stage 3 -->
+                <div class="webcam-category webcam-stage-3 webcam-hidden">
+                    <h3 class="webcam-category-title">⛷️ I-70 CORRIDOR ⛷️</h3>
+                    <div class="webcam-links-grid">
+                        <a href="https://www.winterparkresort.com/the-mountain/mountain-report/mountain-cams" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">🏂</span>
+                            <span class="webcam-name">Winter Park</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                        <a href="https://www.eldora.com/the-mountain/webcams/" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">🎿</span>
+                            <span class="webcam-name">Eldora</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                        <a href="https://www.lovelandski.com/webcams/" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">❄️</span>
+                            <span class="webcam-name">Loveland</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Southern Colorado - Stage 3 -->
+                <div class="webcam-category webcam-stage-3 webcam-hidden">
+                    <h3 class="webcam-category-title">🏔️ SOUTHERN COLORADO 🏔️</h3>
+                    <div class="webcam-links-grid">
+                        <a href="https://www.monarchmountain.com/mountain-report/" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">👑</span>
+                            <span class="webcam-name">Monarch Mountain</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                        <a href="https://www.skicb.com/the-mountain/conditions-grooming/webcams/" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">🏂</span>
+                            <span class="webcam-name">Crested Butte</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                        <a href="https://www.tellurideskiresort.com/the-mountain/webcams/" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">⭐</span>
+                            <span class="webcam-name">Telluride</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                        <a href="https://www.wolfcreekski.com/webcams/" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">🐺</span>
+                            <span class="webcam-name">Wolf Creek</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Steamboat - Stage 3 -->
+                <div class="webcam-category webcam-stage-3 webcam-hidden">
+                    <h3 class="webcam-category-title">🎿 STEAMBOAT AREA 🎿</h3>
+                    <div class="webcam-links-grid">
+                        <a href="https://www.steamboat.com/the-mountain/mountain-report/mountain-cams" target="_blank" rel="noopener noreferrer" class="webcam-link-card">
+                            <span class="webcam-icon">🤠</span>
+                            <span class="webcam-name">Steamboat</span>
+                            <span class="webcam-badge">🔴 LIVE</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Breaking News Ticker - Just Above Footer with Ski Slang! -->
+    <div class="news-ticker">
+        <div class="ticker-content">
+            <span>🏂 BREAKING NEWS:</span>
+            <span>❄️</span>
+            <span>🎿 FRESH POW INCOMING! TIME TO SHRED!</span>
+            <span>❄️</span>
+            <span>🔵 BLUEBIRD DAY ALERT! TOTALLY SICK CONDITIONS!</span>
+            <span>❄️</span>
+            <span>🏔️ CHAMPAGNE POWDER! THIS IS TOTALLY RAD!</span>
+            <span>❄️</span>
+            <span>🤙 GNARLY RUNS TODAY BRO! CATCH YOU ON THE SLOPES!</span>
+            <span>❄️</span>
+            <span>⛷️ EPIC CORDUROY! TIME TO CARVE IT UP!</span>
+            <span>❄️</span>
+            <span>🏂 STOKED FOR FACE SHOTS! POWDER TO THE PEOPLE!</span>
+            <span>❄️</span>
+            <span>🎿 GETTING AFTER IT! NO YARD SALE TODAY!</span>
+            <span>❄️</span>
+            <span>🔥 SENDING IT! FULL SEND ALL DAY!</span>
+            <span>❄️</span>
+        </div>
+    </div>
+
+    <footer>
+        <!-- Copyright - Bottom Left -->
+        <div class="footer-copyright">
+            &copy; 2025 SnowBytes
+        </div>
+        
+        <!-- Ultra Retro 90s Hit Counter -->
+        <div class="retro-hit-counter">
+            <div class="hit-counter-label">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ctext x='8' y='12' text-anchor='middle' font-size='14'%3E👁️%3C/text%3E%3C/svg%3E" alt="eye" class="counter-icon">
+                YOU ARE VISITOR NUMBER:
+            </div>
+            <div class="hit-counter-display" id="hitCounterDisplay">
+                <div class="counter-digit" data-digit="0">0</div>
+                <div class="counter-digit" data-digit="0">0</div>
+                <div class="counter-digit" data-digit="0">0</div>
+                <div class="counter-digit" data-digit="3">3</div>
+                <div class="counter-digit" data-digit="6">6</div>
+                <div class="counter-digit" data-digit="7">7</div>
+            </div>
+            <div class="hit-counter-since">SINCE JANUARY 2025 🎿</div>
+        </div>
+        
+        <!-- Footer Bottom Right Section: Easter Eggs + Site Info -->
+        <div class="footer-bottom-right">
+            <!-- Easter Egg Badges -->
+            <div class="easter-egg-badges">
+                <div class="retro-badge" title="Best viewed in Netscape Navigator 4.0">
+                    <span class="badge-icon">🌐</span>
+                    <span class="badge-text">NETSCAPE<br>NOW!</span>
+                </div>
+                <div class="retro-badge" title="Powered by 100% AI">
+                    <span class="badge-icon">🤖</span>
+                    <span class="badge-text">AI<br>POWERED</span>
+                </div>
+                <div class="retro-badge" title="Fresh Powder Guaranteed">
+                    <span class="badge-icon">❄️</span>
+                    <span class="badge-text">100%<br>POW</span>
+                </div>
+                <div class="retro-badge" title="Under Construction... always!">
+                    <span class="badge-icon">🚧</span>
+                    <span class="badge-text">UNDER<br>CONSTR.</span>
+                </div>
+                <div class="retro-badge blog-archive-link" title="Blog Archive">
+                    <a href="blog.html" style="color: inherit; text-decoration: none; display: block;">
+                        <span class="badge-icon">📰</span>
+                        <span class="badge-text" style="font-size: 0.6em;">BLOG</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Site Info -->
+            <div class="webmaster-section">
+                <p class="webmaster-title">⚙️ SITE INFO ⚙️</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript Modules - IMPROVED: Extracted inline script to separate file -->
+    <script src="darkmode.js" defer></script>
+    <script src="snowfall.js" defer></script>
+    <script src="ski-forecast-widget.js" defer></script>
+    <script src="webcam-disclosure.js" defer></script>
+</body>
+</html>
+

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnowBytes - Responsive Test Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .info-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .info-box h2 {
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+        
+        .device-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 1.2em;
+        }
+        
+        .checklist {
+            list-style: none;
+        }
+        
+        .checklist li {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .checklist li::before {
+            content: "✓ ";
+            color: #4CAF50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .test-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .test-btn {
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px solid white;
+            border-radius: 10px;
+            color: white;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 48px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .test-btn:active {
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .device-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏂 SnowBytes Responsive Test 🎿</h1>
+        
+        <div class="info-box">
+            <h2>📱 Your Device Information</h2>
+            <div class="device-info">
+                <div class="info-item">
+                    <div class="info-label">Screen Width</div>
+                    <div class="info-value" id="screenWidth">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Screen Height</div>
+                    <div class="info-value" id="screenHeight">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Viewport Width</div>
+                    <div class="info-value" id="viewportWidth">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Viewport Height</div>
+                    <div class="info-value" id="viewportHeight">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Device Type</div>
+                    <div class="info-value" id="deviceType">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Orientation</div>
+                    <div class="info-value" id="orientation">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Pixel Ratio</div>
+                    <div class="info-value" id="pixelRatio">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Touch Support</div>
+                    <div class="info-value" id="touchSupport">-</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h2>✅ Optimization Checklist</h2>
+            <ul class="checklist">
+                <li>All interactive elements are at least 44×44px (48×48px optimal)</li>
+                <li>Text is readable without zooming</li>
+                <li>No horizontal scrolling required</li>
+                <li>Buttons and links are easy to tap with finger</li>
+                <li>Forms don't trigger unwanted zoom on iOS</li>
+                <li>Content adapts to screen size</li>
+                <li>Images scale properly</li>
+                <li>Navigation is accessible</li>
+            </ul>
+        </div>
+        
+        <div class="info-box">
+            <h2>🧪 Test All Pages</h2>
+            <div class="test-buttons">
+                <a href="index.html" class="test-btn">🏠 Home</a>
+                <a href="ski-patrol.html" class="test-btn">⛷️ Ski Patrol</a>
+                <a href="contact.html" class="test-btn">📮 Contact</a>
+                <a href="blog.html" class="test-btn">❄️ Blog</a>
+                <a href="all-blogs.html" class="test-btn">📰 All Blogs</a>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h2>📏 Breakpoint Guide</h2>
+            <ul class="checklist">
+                <li><strong>Desktop:</strong> 1024px+ (Full layout with all features)</li>
+                <li><strong>Tablet:</strong> 768-1024px (2-3 columns, touch-optimized)</li>
+                <li><strong>Mobile:</strong> 480-767px (Single column, large touch targets)</li>
+                <li><strong>Small Mobile:</strong> &lt;480px (Extra compact)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        function updateDeviceInfo() {
+            document.getElementById('screenWidth').textContent = screen.width + 'px';
+            document.getElementById('screenHeight').textContent = screen.height + 'px';
+            document.getElementById('viewportWidth').textContent = window.innerWidth + 'px';
+            document.getElementById('viewportHeight').textContent = window.innerHeight + 'px';
+            document.getElementById('pixelRatio').textContent = window.devicePixelRatio || 1;
+            document.getElementById('touchSupport').textContent = 
+                ('ontouchstart' in window || navigator.maxTouchPoints > 0) ? '✅ Yes' : '❌ No';
+            document.getElementById('orientation').textContent = 
+                window.innerWidth > window.innerHeight ? '🔄 Landscape' : '📱 Portrait';
+            
+            // Determine device type
+            let deviceType = 'Desktop';
+            const width = window.innerWidth;
+            if (width < 480) {
+                deviceType = '📱 Small Mobile';
+            } else if (width < 768) {
+                deviceType = '📱 Mobile';
+            } else if (width < 1024) {
+                deviceType = '📱 Tablet';
+            } else {
+                deviceType = '💻 Desktop';
+            }
+            document.getElementById('deviceType').textContent = deviceType;
+        }
+        
+        // Update on load
+        updateDeviceInfo();
+        
+        // Update on resize
+        window.addEventListener('resize', updateDeviceInfo);
+        
+        // Update on orientation change
+        window.addEventListener('orientationchange', () => {
+            setTimeout(updateDeviceInfo, 100);
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse all snow sports articles from SnowBytes - comprehensive coverage of skiing, snowboarding, and winter sports.">
+    <title>Blogs - SnowBytes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://api.rss2json.com">
+    <link rel="preconnect" href="https://api.allorigins.win">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="alternate" type="application/rss+xml" title="SnowBytes RSS Feed" href="feed.xml">
+</head>
+<body>
+    <!-- Top row: Logo left, mode toggles right -->
+    <div class="header-top-row">
+        <h1 class="neon-title">SnowBytes</h1>
+        <div class="mode-toggles">
+            <button 
+                id="darkModeToggle" 
+                class="dark-mode-toggle" 
+                type="button"
+                aria-label="Toggle dark mode"
+                aria-pressed="false"
+                title="Switch between light and dark themes">
+                🌙
+            </button>
+            <button 
+                id="nightVisionToggle" 
+                class="night-vision-toggle" 
+                type="button"
+                aria-label="Toggle night vision mode"
+                aria-pressed="false"
+                title="Enable night vision display mode">
+                🔴
+            </button>
+        </div>
+    </div>
+    
+    <!-- Bottom row: Nav left, info center, forecast right -->
+    <div class="info-nav-container">
+        <!-- Left: Navigation -->
+        <nav role="navigation" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="ski-patrol.html">Ski Patrol</a>
+            <a href="contact.html">Contact A Ski Bum</a>
+        </nav>
+        
+        <!-- Center: Clock and Online Users stacked -->
+        <div class="info-left">
+            <div class="retro-clock" id="retroClock">00:00:00 AM | JAN 01, 2025</div>
+            <div class="online-users-counter">
+                <div class="online-indicator"></div>
+                <span id="onlineCount">47</span> USERS ONLINE NOW!
+            </div>
+        </div>
+        
+        <!-- Right: 7-Day Forecast -->
+        <div class="info-right">
+            <div id="skiResortForecast"></div>
+        </div>
+    </div>
+
+    <main>
+        <h2 class="page-title">All Blog Posts</h2>
+        
+        <!-- Filter Dropdowns (90s Style) -->
+        <div class="filter-section-compact">
+            <label for="sportFilter">🏆 Sport:</label>
+            <select id="sportFilter" class="retro-dropdown">
+                <option value="all">All Sports</option>
+                <option value="Football">🏈 Football</option>
+                <option value="Basketball">🏀 Basketball</option>
+                <option value="Baseball">⚾ Baseball</option>
+                <option value="Soccer">⚽ Soccer</option>
+                <option value="Hockey">🏒 Hockey</option>
+                <option value="Tennis">🎾 Tennis</option>
+                <option value="Golf">⛳ Golf</option>
+                <option value="Combat Sports">🥊 Boxing/MMA</option>
+                <option value="Racing">🏎️ Racing</option>
+                <option value="Betting">🎲 Betting</option>
+            </select>
+            
+            <label for="sourceFilter">📰 Source:</label>
+            <select id="sourceFilter" class="retro-dropdown">
+                <option value="all">All Sources</option>
+                <option value="ESPN">📺 ESPN</option>
+                <option value="BBC Sport">🇬🇧 BBC Sport</option>
+                <option value="Yahoo Sports">🟣 Yahoo Sports</option>
+                <option value="Sports Illustrated">📰 Sports Illustrated</option>
+                <option value="Fox Sports">🦊 Fox Sports</option>
+                <option value="Covers">🎲 Covers</option>
+                <option value="Action Network">💰 Action Network</option>
+                <option value="Vegas Insider">🎰 Vegas Insider</option>
+                <option value="Betting Pros">📊 Betting Pros</option>
+                <option value="Odds Shark">🦈 Odds Shark</option>
+            </select>
+            
+            <button id="clearFilters" class="retro-button">🔄 Clear All</button>
+            <button id="refreshFeeds" class="retro-button" style="background: linear-gradient(180deg, #00FF41 0%, #00CC33 100%); color: #000; font-weight: bold;">⚡ Refresh Feeds</button>
+        </div>
+        
+        <div id="all-posts-container">
+            <p class="loading-message">Loading all sports articles... 📡</p>
+        </div>
+        
+        <!-- Pagination Controls -->
+        <div id="pagination-controls" class="pagination-controls hidden" role="navigation" aria-label="Article pagination">
+            <button id="prevPage" class="pagination-btn" aria-label="Go to previous page">⬅️ Previous</button>
+            <span id="pageInfo" class="page-info" aria-live="polite">Page 1 of 10</span>
+            <button id="nextPage" class="pagination-btn" aria-label="Go to next page">Next ➡️</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="webmaster-section">
+            <p class="webmaster-title">⚙️ SITE INFO ⚙️</p>
+            <p class="webmaster-email">📧 Webmaster: ai@snowbytes.net</p>
+        </div>
+        <p><a href="feed.xml" class="rss-link" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to RSS feed">📡 Subscribe to RSS Feed</a></p>
+        <p>&copy; 2025 SnowBytes</p>
+    </footer>
+    
+    <script src="snowfall.js" defer></script>
+    <script src="ski-forecast-widget.js" defer></script>
+    <script src="darkmode.js" defer></script>
+    <!-- Matrix effect removed for cleaner après-ski footer -->
+    <script src="rss-importer.js" defer></script>
+    <script defer>
+        // Pagination state
+        let allLoadedArticles = [];
+        let filteredArticles = [];
+        let currentPage = 1;
+        const articlesPerPage = 5;
+        
+        // ULTRA-FAST: Load ALL feeds in parallel at once with caching
+        window.addEventListener('DOMContentLoaded', async () => {
+            // Top tier feeds for best speed (12 most reliable sources)
+            const feeds = [
+                // ESPN (fastest, most reliable)
+                'https://www.espn.com/espn/rss/news',
+                'https://www.espn.com/espn/rss/nfl/news',
+                'https://www.espn.com/espn/rss/nba/news',
+                'https://www.espn.com/espn/rss/mlb/news',
+                'https://www.espn.com/espn/rss/nhl/news',
+                'https://www.espn.com/espn/rss/soccer/news',
+                'https://www.espn.com/espn/rss/ncf/news',
+                'https://www.espn.com/espn/rss/ncb/news',
+                
+                // Other top sources
+                'http://feeds.bbci.co.uk/sport/rss.xml',
+                'https://www.si.com/rss/si_topstories.rss',
+                'https://www.covers.com/rss/articles.xml',
+                'https://www.actionnetwork.com/feeds/rss'
+            ];
+            
+            const container = document.getElementById('all-posts-container');
+            container.innerHTML = '<p class="loading-message">⚡ Loading articles at light speed... 📡</p>';
+            
+            let allArticles = [];
+            
+            // Load ALL feeds in parallel at once (no batching for max speed!)
+            const results = await Promise.allSettled(
+                feeds.map(async (feedUrl) => {
+                    try {
+                        const sourceInfo = getSourceInfo(feedUrl);
+                        const items = await fetchRSSData(feedUrl, 8);
+                        return items.map(item => createArticleElement(item, sourceInfo));
+                    } catch (e) {
+                        // Silently skip failed feeds for better UX
+                        return [];
+                    }
+                })
+            );
+            
+            // Collect all successful results
+            results.forEach(result => {
+                if (result.status === 'fulfilled' && result.value && result.value.length > 0) {
+                    allArticles.push(...result.value);
+                }
+            });
+            
+            // Shuffle for variety and limit to 40 (5 per page x 8 pages)
+            allArticles = allArticles
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 40);
+            
+            allLoadedArticles = allArticles;
+            filteredArticles = allLoadedArticles;
+            
+            if (allLoadedArticles.length === 0) {
+                container.innerHTML = '<p class="error-message">Unable to load articles. Please try again later.</p>';
+            } else {
+                // Display first page
+                displayPage(1);
+                
+                // Show pagination controls
+                document.getElementById('pagination-controls').classList.remove('hidden');
+                
+                // Setup pagination buttons
+                document.getElementById('prevPage').addEventListener('click', () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        displayPage(currentPage);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+                
+                document.getElementById('nextPage').addEventListener('click', () => {
+                    const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        displayPage(currentPage);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+                
+                // Setup filter change handlers
+                setupFilterIntegration();
+            }
+        });
+        
+        function displayPage(page) {
+            const container = document.getElementById('all-posts-container');
+            container.innerHTML = '';
+            
+            const startIndex = (page - 1) * articlesPerPage;
+            const endIndex = startIndex + articlesPerPage;
+            const articlesToShow = filteredArticles.slice(startIndex, endIndex);
+            
+            articlesToShow.forEach(article => {
+                container.appendChild(article.cloneNode(true));
+            });
+            
+            // Update pagination info
+            const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+            document.getElementById('pageInfo').textContent = `Page ${page} of ${totalPages}`;
+            
+            // Update button states
+            document.getElementById('prevPage').disabled = (page === 1);
+            document.getElementById('nextPage').disabled = (page === totalPages);
+            
+            // Add count info at bottom
+            const countInfo = document.createElement('p');
+            countInfo.className = 'article-count-info';
+            countInfo.textContent = `Showing ${startIndex + 1}-${Math.min(endIndex, filteredArticles.length)} of ${filteredArticles.length} articles`;
+            container.appendChild(countInfo);
+        }
+        
+        // Make badge clicks work with pagination
+        window.filterBySport = function(sportName) {
+            const sportDropdown = document.getElementById('sportFilter');
+            if (sportDropdown) {
+                sportDropdown.value = sportName;
+                sportDropdown.dispatchEvent(new Event('change'));
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        
+        window.filterBySource = function(sourceName) {
+            const sourceDropdown = document.getElementById('sourceFilter');
+            if (sourceDropdown) {
+                sourceDropdown.value = sourceName;
+                sourceDropdown.dispatchEvent(new Event('change'));
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        
+        function setupFilterIntegration() {
+            const sportDropdown = document.getElementById('sportFilter');
+            const sourceDropdown = document.getElementById('sourceFilter');
+            const clearButton = document.getElementById('clearFilters');
+            
+            function applyPaginatedFilters() {
+                const sportFilter = sportDropdown ? sportDropdown.value : 'all';
+                const sourceFilter = sourceDropdown ? sourceDropdown.value : 'all';
+                
+                // Filter the articles
+                filteredArticles = allLoadedArticles.filter(article => {
+                    const articleSport = article.getAttribute('data-sport');
+                    const articleSource = article.getAttribute('data-source');
+                    
+                    const matchesSport = sportFilter === 'all' || articleSport === sportFilter;
+                    const matchesSource = sourceFilter === 'all' || articleSource === sourceFilter;
+                    
+                    return matchesSport && matchesSource;
+                });
+                
+                // Reset to page 1 and display
+                currentPage = 1;
+                displayPage(1);
+                
+                // Show message if no results
+                if (filteredArticles.length === 0) {
+                    document.getElementById('all-posts-container').innerHTML = 
+                        '<p class="error-message">🔍 No articles found with these filters.<br><small>Try selecting different categories!</small></p>';
+                }
+            }
+            
+            if (sportDropdown) {
+                sportDropdown.addEventListener('change', applyPaginatedFilters);
+            }
+            
+            if (sourceDropdown) {
+                sourceDropdown.addEventListener('change', applyPaginatedFilters);
+            }
+            
+            if (clearButton) {
+                clearButton.addEventListener('click', () => {
+                    if (sportDropdown) sportDropdown.value = 'all';
+                    if (sourceDropdown) sourceDropdown.value = 'all';
+                    applyPaginatedFilters();
+                });
+            }
+            
+            // Refresh feeds button - clears cache and reloads
+            const refreshButton = document.getElementById('refreshFeeds');
+            if (refreshButton) {
+                refreshButton.addEventListener('click', async () => {
+                    refreshButton.disabled = true;
+                    refreshButton.textContent = '⏳ Refreshing...';
+                    
+                    // Clear the feed cache from rss-importer.js
+                    if (window.feedCache) {
+                        window.feedCache.clear();
+                    }
+                    
+                    // Reload the page to fetch fresh data
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 500);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+
