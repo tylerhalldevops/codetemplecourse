@@ -76,7 +76,7 @@
                     <p>Help us make this the most tubular snow sports site on the web!</p>
                 </div>
                 
-                <form class="suggestion-form" id="suggestionForm">
+                <form class="suggestion-form" id="suggestionForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
                     <div class="form-group">
                         <label for="name">📛 Your Name (or Alias):</label>
                         <input 
@@ -226,8 +226,8 @@
             const thanksMessage = document.getElementById('thanksMessage');
             const submitBtn = document.querySelector('.suggestion-submit-btn');
             
-            // Backend API URL (change this to your deployed backend URL)
-            const API_URL = 'http://localhost:3000/api/suggestions';
+            // Using Formspree (free form backend service)
+            // Get your form ID at: https://formspree.io
             
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
@@ -236,32 +236,18 @@
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<span class="btn-icon">⏳</span><span class="btn-text">DROPPING...</span>';
                 
-                // Get form data
-                const formData = {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    category: document.getElementById('category').value,
-                    suggestion: document.getElementById('suggestion').value,
-                    stoke: document.querySelector('input[name="stoke"]:checked').value,
-                    timestamp: new Date().toISOString()
-                };
-                
                 try {
-                    // Submit to backend
-                    const response = await fetch(API_URL, {
+                    // Submit to Formspree
+                    const response = await fetch(form.action, {
                         method: 'POST',
+                        body: new FormData(form),
                         headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
+                            'Accept': 'application/json'
+                        }
                     });
                     
-                    const result = await response.json();
-                    
-                    if (result.success) {
-                        console.log('📮 Suggestion submitted successfully!', result);
-                        
-                        // Show thank you message
+                    if (response.ok) {
+                        // Success! Show thank you message
                         form.style.display = 'none';
                         thanksMessage.style.display = 'block';
                         
@@ -271,34 +257,34 @@
                             block: 'start' 
                         });
                     } else {
-                        throw new Error(result.error || 'Failed to submit suggestion');
+                        const data = await response.json();
+                        if (data.errors) {
+                            alert('Error: ' + data.errors.map(error => error.message).join(', '));
+                        } else {
+                            alert('Oops! There was a problem submitting your suggestion.');
+                        }
                     }
-                    
                 } catch (error) {
                     console.error('Error submitting suggestion:', error);
-                    
-                    // Fallback to localStorage if backend is not available
-                    console.log('📮 Backend unavailable, storing locally...');
-                    let suggestions = JSON.parse(localStorage.getItem('snowbytesSuggestions') || '[]');
-                    suggestions.push(formData);
-                    localStorage.setItem('snowbytesSuggestions', JSON.stringify(suggestions));
-                    
-                    // Still show thank you message
-                    form.style.display = 'none';
-                    thanksMessage.style.display = 'block';
-                    
-                    document.querySelector('.suggestion-box').scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start' 
-                    });
-                    
-                    alert('📮 Suggestion saved locally! (Backend server may be offline)');
-                    
-                } finally {
-                    // Re-enable submit button
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<span class="btn-icon">📬</span><span class="btn-text">DROP IN THE BOX!</span>';
+                    alert('Oops! There was a problem submitting your suggestion. Please check your internet connection and try again.');
                 }
+                
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span class="btn-icon">📬</span><span class="btn-text">DROP IN THE BOX!</span>';
+            });
+            
+            // "Drop Another Suggestion" button
+            document.getElementById('anotherSuggestionBtn').addEventListener('click', function() {
+                thanksMessage.style.display = 'none';
+                form.style.display = 'block';
+                form.reset();
+                
+                // Scroll to top
+                document.querySelector('.suggestion-box').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
             });
         })();
     </script>
