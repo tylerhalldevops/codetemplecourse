@@ -1,0 +1,93 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    background-image: 
+        url('https://content.sportslogos.net/logos/32/721/full/kentucky_wildcats_logo_primary_19864681.png'),
+        repeating-linear-gradient(
+            45deg,
+            blue,
+            blue 10px,
+            white 10px,
+            white 20px
+        );
+    background-repeat: repeat;
+    background-size: 80px 80px, auto;
+    color: black;
+    text-align: center;
+    padding: 10px 0px;
+}
+
+header h1 {
+    background-color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+}
+
+.card {
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card h2 {
+    padding: 15px 15px 0 15px;
+}
+
+.card p {
+    padding: 0 15px 15px 15px;
+    color: gray;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+footer {
+    background-image: 
+        url('https://content.sportslogos.net/logos/32/721/full/kentucky_wildcats_logo_primary_19864681.png'),
+        repeating-linear-gradient(
+            45deg,
+            blue,
+            blue 10px,
+            white 10px,
+            white 20px
+        );
+    background-repeat: repeat;
+    background-size: 80px 80px, auto;
+    color: black;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+}
+
+footer p {
+    background-color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}

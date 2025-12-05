@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Your Annoying Neighbor's Calendar</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23F5E6D3'/%3E%3Ccircle cx='30' cy='25' r='8' fill='%2300B4D8'/%3E%3Ccircle cx='70' cy='25' r='8' fill='%2300B4D8'/%3E%3Cellipse cx='35' cy='40' rx='3' ry='4' fill='%23333'/%3E%3Cellipse cx='65' cy='40' rx='3' ry='4' fill='%23333'/%3E%3Ccircle cx='50' cy='50' r='6' fill='%23DC143C'/%3E%3Ccircle cx='25' cy='60' r='12' fill='%23FFB6C1'/%3E%3Ccircle cx='75' cy='60' r='12' fill='%23FFB6C1'/%3E%3Cpath d='M 20 70 Q 50 80 80 70' stroke='%23DC143C' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>Your Annoying Neighbor's Calendar</h1>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="team.html">Meet Our Team</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="contact.html" class="active">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <section class="contact-section">
+            <h1>Contact Us</h1>
+            <p class="contact-intro">Please contact us if your annoying neighbor is doing something unscheduled, extra annoying, or anything else that needs to be tracked. We're here to document every late-night party, surprise garage sale, and unnecessary noise complaint.</p>
+            <form class="contact-form" action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Submit</button>
+            </form>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Your Annoying Neighbor's Calendar. All rights reserved.</p>
+        <p>
+            <a href="https://www.facebook.com" target="_blank">Facebook</a> | 
+            <a href="https://www.twitter.com" target="_blank">Twitter</a> | 
+            <a href="https://www.instagram.com" target="_blank">Instagram</a>
+        </p>
+    </footer>
+</body>
+</html>
+

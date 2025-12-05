@@ -1,0 +1,149 @@
+/* General Reset to remove default margins and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #000; /* Darkest black background */
+    padding: 10px 20px; /* Spacing inside navbar */
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center items vertically */
+}
+
+/* Logo Styles */
+.logo {
+    color: white; /* White text color */
+    font-size: 24px; /* Larger font size */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Hamburger Icon Styles */
+/* The fix: Our custom styles now override any conflicting styles from Font Awesome */
+/* Visible on the right for all views */
+.menu-toggle {
+    color: white; /* White icon color */
+    font-size: 25px; /* Icon size */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: block; /* Show icon on all screen sizes */
+}
+
+/* Navigation Menu Styles */
+.menu {
+    display: none; /* Hide menu by default on all screen sizes */
+    align-items: center; /* Center items vertically */
+}
+
+/* Show menu when active - opens vertically on all screen sizes */
+.menu.active {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    position: absolute; /* Position relative to navbar */
+    background-color: #000; /* Same background as navbar */
+    top: 60px; /* Position below the navbar */
+    left: 0;
+    right: 0;
+    z-index: 1; /* Stay on top of other elements */
+    padding: 20px 0; /* Padding around menu items */
+}
+
+/* Menu List Styles */
+.menu ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Display list items inline */
+    flex-direction: column; /* Stack items vertically when menu is open */
+    align-items: center; /* Center items horizontally */
+    gap: 20px;
+}
+
+/* Menu Item Styles */
+.menu li {
+    margin: 10px 0; /* Space between items when menu is open */
+}
+
+/* Menu Link Styles */
+.menu a {
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 18px; /* Font size */
+}
+
+/* Hover Effect on Menu Links */
+.menu a:hover {
+    color: antiquewhite; /* Light color on hover */
+}
+
+/* Content Styles */
+.content {
+    padding: 20px;
+}
+
+/* Media Query for Mobile View */
+@media (max-width: 599px) {
+    /* Hide the menu by default */
+    .menu {
+        display: none;
+    }
+
+    /* Show the menu when active - opens vertically */
+    .menu.active {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        position: absolute; /* Position relative to navbar */
+        background-color: #000; /* Same background as navbar */
+        top: 60px; /* Position below the navbar */
+        left: 0;
+        right: 0;
+        z-index: 1; /* Stay on top of other elements */
+        padding: 20px 0; /* Padding around menu items */
+    }
+
+    /* Adjust the menu list for mobile */
+    .menu ul {
+        flex-direction: column; /* Stack list items vertically */
+        align-items: center; /* Center items horizontally */
+    }
+
+    /* Adjust menu items for mobile */
+    .menu li {
+        margin: 10px 0; /* Space between items */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Hide the menu by default in mobile view */
+    .menu {
+        display: none; /* Hide menu */
+    }
+
+    /* Show the menu when active - opens vertically */
+    .menu.active {
+        display: flex; /* Display menu */
+        flex-direction: column; /* Stack items vertically */
+        position: absolute; /* Position relative to navbar */
+        background-color: #000; /* Same background as navbar */
+        top: 60px; /* Position below the navbar */
+        left: 0;
+        right: 0;
+        z-index: 1; /* Stay on top of other elements */
+        padding: 20px 0; /* Padding around menu items */
+    }
+
+    /* Adjust the menu list for mobile */
+    .menu ul {
+        flex-direction: column; /* Stack list items vertically */
+        align-items: center; /* Center items horizontally */
+    }
+
+    /* Adjust menu items for mobile */
+    .menu li {
+        margin: 10px 0; /* Space between items */
+    }
+}
+
+
